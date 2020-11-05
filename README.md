@@ -1,2 +1,2 @@
 # connect4
-to play run python game.py
+AI for connect4. Uses a simple minmax tree. To play: clone repo and run _python game.py_.
