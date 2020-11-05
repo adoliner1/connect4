@@ -40,6 +40,7 @@ def playGame(cols, rows, chainSizeToWin):
 				print("Column full, try again")
 				continue
 
+		print("\n Placing in column " + str(move.col))
 		boardContainer.board[move.row][move.col] = playersChecker
 		boardContainer.playerCheckerLocations.append(move) if isPlayer else boardContainer.AIcheckerLocations.append(move)
 		boardContainer.openSpaces -= 1	
@@ -65,7 +66,7 @@ def getScoreFromChains(boardContainer, chains):
 	score = 0
 	for key in chains:
 		chain = chains[key]
-		if chain.potential:
+		if chain.potential or chain.getSize() >= 4:
 			if chain.getSize() == 1:
 				score += 1
 			elif chain.getSize() == 2:
@@ -83,8 +84,8 @@ def getScoreFromChains(boardContainer, chains):
 			else:
 				score += 9999
 
-			for key in chain.potential.keys():				
-				score += 3	
+			for key in chain.potential.keys():	
+				score += 3
 	return score
 
 def buildTree(node, isPlayer, currentDepth, maxDepth, chainSizeToWin):
@@ -298,4 +299,5 @@ def printTree(node, indent):
 	printBoard(node.boardContainer.board, indent)
 	for child in node.children:
 		printTree(child, indent + "    ")
+
 playGame(7, 6, 4)
